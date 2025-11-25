@@ -1,7 +1,7 @@
 import { verifyAccessToken } from '../utils/jwt.js';
 import logger from '../utils/logger.js';
 
-export const authMiddleware = async (req, res, next) => {
+export const authenticate = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
     
