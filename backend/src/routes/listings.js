@@ -1,6 +1,6 @@
 import express from 'express';
 import ListingsController from '../controllers/listingsController.js';
-import { authenticate } from '../middleware/authMiddleware.js';
+import { authMiddleware } from '../middleware/authMiddleware.js';
 import { body, param, query } from 'express-validator';
 
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 /**
  * All routes require authentication
  */
-router.use(authenticate);
+router.use(authMiddleware);
 
 /**
  * GET /api/listings
@@ -19,7 +19,13 @@ router.get(
   [
     query('status').optional().isIn(['active', 'archived', 'sold']),
     query('search').optional().isString().trim(),
-    query('sort').optional().isIn(['date_desc', 'date_asc', 'price_desc', 'price_asc', 'title_asc']),
+    query('sort').optional().isIn([
+      'date_desc',
+      'date_asc',
+      'price_desc',
+      'price_asc',
+      'title_asc'
+    ]),
     query('page').optional().isInt({ min: 1 }),
     query('limit').optional().isInt({ min: 1, max: 100 }),
   ],
@@ -102,3 +108,4 @@ router.get(
 );
 
 export default router;
+
