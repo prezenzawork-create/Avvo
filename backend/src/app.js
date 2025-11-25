@@ -2,6 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
+import listingsRoutes from './routes/listings.js';
+import optimizerRoutes from './routes/optimizer.js';
+import chatRoutes from './routes/chat.js';
+import competitorsRoutes from './routes/competitors.js';
+import analyticsRoutes from './routes/analytics.js';
 import { globalLimiter } from './middleware/rateLimiter.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import logger from './utils/logger.js';
@@ -35,6 +40,11 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use('/api/auth', authRoutes);
+app.use('/api/listings', listingsRoutes);
+app.use('/api/optimize', optimizerRoutes);
+app.use('/api/chats', chatRoutes);
+app.use('/api/competitors', competitorsRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 // 404 handler
 app.use((req, res) => {
